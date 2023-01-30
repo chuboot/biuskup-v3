@@ -9,48 +9,62 @@ const getCards = async () => {
   renderAllMovies(movies);
 };
 
+const getCast = (movidcast) => {
+  fetch(
+    `https://api.themoviedb.org/3/movie/${movidcast}/credits?api_key=17c8dffc0cbd61894a0460817bbba88e&language=en-US`
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .then((rescast) => {
+      const moviesCast = rescast.cast.slice(0, 4);
+      console.log(moviesCast);
+      renderAllCast(moviesCast);
+    });
+};
+
+function renderAllCast(moviesCast) {
+  const listCast = document.createElement("div");
+  listCast.innerHTML = "";
+  moviesCast.forEach((cast) => {
+    listCast.innerHTML += `
+            <div class="card-cast">
+                <div class="cast-img">
+                  <img src="https://www.themoviedb.org/t/p/original/${cast.profile_path}" alt="" />
+                </div>
+            <h5>${cast.name}</h5>
+            </div>
+        `;
+  });
+
+  listCast.classList.add("row-cast");
+  document.querySelector(".caption").appendChild(listCast);
+}
+
 function showMovieDetail(resmovie) {
   return `
       <div class="backdrop">
-        <img src="https://www.themoviedb.org/t/p/original/${resmovie.backdrop_path}"" alt="${resmovie.title}" />
+        <img src="https://www.themoviedb.org/t/p/original/${
+          resmovie.backdrop_path
+        }"" alt="${resmovie.title}" />
       </div>
       <div class="container">
         <div class="hero">
           <div class="card-img">
-            <img src="https://www.themoviedb.org/t/p/original/${resmovie.poster_path}"" alt="${resmovie.title}" />
+            <img src="https://www.themoviedb.org/t/p/original/${
+              resmovie.poster_path
+            }"" alt="${resmovie.title}" />
           </div>
           <div class="caption">
             <h2>${resmovie.title}</h2>
-            <span>Adventure - Comedy - Romantic</span>
-            <p>${resmovie.overview}
-            </p>
+            
+            <p>${resmovie.release_date.slice(0, 4)}</p>
+            <div>${resmovie.genres
+              .map((genre) => `<span>${genre.name}</span>`)
+              .join(" - ")}</div>
+            <p>${resmovie.overview}</p>
             <h4>Cast:</h4>
-            <div class="row-cast">
-              <div class="card-cast">
-                <div class="cast-img">
-                  <img src="images/cast1.jpg" alt="" />
-                </div>
-                <h5>Tom Holland</h5>
-              </div>
-              <div class="card-cast">
-                <div class="cast-img">
-                  <img src="images/cast1.jpg" alt="" />
-                </div>
-                <h5>Tom Holland</h5>
-              </div>
-              <div class="card-cast">
-                <div class="cast-img">
-                  <img src="images/cast1.jpg" alt="" />
-                </div>
-                <h5>Tom Holland</h5>
-              </div>
-              <div class="card-cast">
-                <div class="cast-img">
-                  <img src="images/cast1.jpg" alt="" />
-                </div>
-                <h5>Tom Holland</h5>
-              </div>
-            </div>
+    
           </div>
         </div>
         <div class="trailer">
@@ -112,6 +126,7 @@ const renderAllMovies = (movies) => {
 
           secMovie.innerHTML = detailsMovies;
         });
+      getCast(movieID);
     });
   });
 };
