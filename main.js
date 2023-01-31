@@ -22,6 +22,19 @@ const getCast = (movidcast) => {
       renderAllCast(moviesCast);
     });
 };
+const getTrailer = (movivid) => {
+  fetch(
+    `https://api.themoviedb.org/3/movie/${movivid}/videos?api_key=17c8dffc0cbd61894a0460817bbba88e&language=en-US`
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .then((resvid) => {
+      const moviesTrailer = resvid.results.slice(0, 2);
+      console.log(moviesTrailer);
+      renderAllTrailer(moviesTrailer);
+    });
+};
 
 function renderAllCast(moviesCast) {
   const listCast = document.createElement("div");
@@ -40,6 +53,30 @@ function renderAllCast(moviesCast) {
   listCast.classList.add("row-cast");
   document.querySelector(".caption").appendChild(listCast);
 }
+
+const renderAllTrailer = (moviesTrailer) => {
+  const listTrailer = document.createElement("div");
+  listTrailer.innerHTML = "";
+
+  moviesTrailer.forEach((trailer, index) => {
+    listTrailer.innerHTML += `
+          <h2>Official Trailer #${index + 1}</h2>
+          <iframe
+            width="100%"
+            height="315"
+            src="https://www.youtube.com/embed/${trailer.key}"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+
+    `;
+  });
+
+  listTrailer.classList.add("trailer");
+  document.querySelector("section .container").appendChild(listTrailer);
+};
 
 function showMovieDetail(resmovie) {
   return `
@@ -67,28 +104,6 @@ function showMovieDetail(resmovie) {
     
           </div>
         </div>
-        <div class="trailer">
-          <h2>Official Trailer #1</h2>
-          <iframe
-            width="100%"
-            height="315"
-            src="https://www.youtube.com/embed/JfVOs4VSpmA"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          ></iframe>
-          <h2>Official Trailer #2</h2>
-          <iframe
-            width="100%"
-            height="315"
-            src="https://www.youtube.com/embed/JfVOs4VSpmA"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          ></iframe>
-        </div>
       </div>
     `;
 }
@@ -113,6 +128,7 @@ const renderAllMovies = (movies) => {
   detailMovie.forEach((img) => {
     img.addEventListener("click", function () {
       const movieID = this.dataset.id;
+      topFunction();
       console.log(movieID);
       fetch(
         `https://api.themoviedb.org/3/movie/${movieID}?api_key=17c8dffc0cbd61894a0460817bbba88e&language=en-US`
@@ -127,8 +143,14 @@ const renderAllMovies = (movies) => {
           secMovie.innerHTML = detailsMovies;
         });
       getCast(movieID);
+      getTrailer(movieID);
     });
   });
 };
 
 getCards();
+
+const topFunction = () => {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+};
