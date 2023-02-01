@@ -1,3 +1,5 @@
+import "./style.css";
+
 const getCards = async () => {
   const response = await fetch(
     "https://api.themoviedb.org/3/movie/popular?api_key=17c8dffc0cbd61894a0460817bbba88e&language=en-US&page=1"
