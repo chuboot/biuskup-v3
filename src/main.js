@@ -131,7 +131,7 @@ const renderAllMovies = (movies) => {
     img.addEventListener("click", function () {
       const movieID = this.dataset.id;
       topFunction();
-      console.log(movieID);
+      // console.log(movieID);
       fetch(
         `https://api.themoviedb.org/3/movie/${movieID}?api_key=17c8dffc0cbd61894a0460817bbba88e&language=en-US`
       )
