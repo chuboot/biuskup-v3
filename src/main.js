@@ -53,10 +53,13 @@ const renderAllSlides = (slides) => {
   slides.forEach((sl) => {
     wrapperSlide.innerHTML += `
     <div class="swiper-slide">
-              <img
-                src="https://www.themoviedb.org/t/p/original/${sl.backdrop_path}"
-                alt="Black Panther: Wakanda Forever"
-              />
+              <div class="item">
+                <img src="https://www.themoviedb.org/t/p/original/${sl.backdrop_path}" alt="slider-image" />
+                <div class="slide-text">
+                    <h1>${sl.title}</h1>
+                    <p>Release Date: ${sl.release_date}</p>
+                </div>
+              </div>
     </div>
     `;
   });
@@ -208,3 +211,16 @@ const topFunction = () => {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
 };
+
+//change bg when scroll
+
+let navbar = document.querySelector("header");
+
+window.addEventListener("scroll", function () {
+  let valueScroll = window.scrollY;
+  if (valueScroll < 70) {
+    navbar.classList.remove("bg-nav-color");
+  } else {
+    navbar.classList.add("bg-nav-color");
+  }
+});

@@ -37,11 +37,50 @@ section h1 {
 
 .swiper-slide {
   text-align: center;
-  font-size: 18px;
-  background: #fff;
+  /* background: pink; */
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.swiper-slide .item:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.swiper-slide .item::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 150px;
+  bottom: 0;
+  left: 0;
+  /* background: rgba(0, 0, 0, 0.6); */
+  background-image: linear-gradient(transparent, black);
+}
+
+.swiper-slide .item .slide-text {
+  position: absolute;
+
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  /* display: flex; */
+  /* justify-content: center; */
+  /* justify-items: center; */
+  width: 70%;
+  /* background-color: aquamarine; */
+  color: #fff;
+}
+
+.swiper-slide .item .slide-text h1 {
+  font-size: 5vw;
 }
 
 .swiper-slide img {
@@ -51,20 +90,6 @@ section h1 {
   object-fit: cover;
 }
 /* swiper */
-
-/* logo */
-.brand-logo {
-  font-family: "Lalezar", sans-serif;
-  font-size: 45px;
-}
-.brand-logo a {
-  color: #fff;
-  text-decoration: none;
-}
-.brand-logo a:hover {
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.22);
-}
-/* logo */
 
 .container {
   max-width: 80%;
@@ -79,17 +104,34 @@ header {
   right: 0;
   z-index: 3;
   display: flex;
-  /* background-color: rgba(0, 0, 0, 0.6); */
+  padding: 0;
+  height: 75px;
+  justify-items: center;
+  justify-content: center;
+}
+
+.bg-nav-color {
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .app-bar {
-  text-align: center;
+  margin: 0 auto;
+  /* background: pink; */
 }
 
-.app-bar h1 {
-  font-family: "Poppins";
-  font-size: 1.5rem;
+/* logo */
+.brand-logo {
+  font-family: "Lalezar", sans-serif;
+  font-size: 35px;
 }
+.brand-logo a {
+  color: #fff;
+  text-decoration: none;
+}
+.brand-logo a:hover {
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.22);
+}
+/* logo */
 /* home */
 
 .movie-list {
