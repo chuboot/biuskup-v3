@@ -14,6 +14,7 @@ var swiper = new Swiper(".mySwiper", {
   pagination: {
     el: ".swiper-pagination",
     clickable: true,
+    type: "progressbar",
   },
   navigation: {
     nextEl: ".swiper-button-next",
@@ -32,6 +33,33 @@ const getCards = async () => {
   const movies = responseJson.results;
   console.log(movies);
   renderAllMovies(movies);
+};
+
+const getSlides = async () => {
+  const response = await fetch(
+    "https://api.themoviedb.org/3/movie/popular?api_key=17c8dffc0cbd61894a0460817bbba88e&language=en-US&page=1"
+  );
+
+  const resJson = await response.json();
+  const slides = resJson.results.slice(0, 4);
+  console.log(slides);
+  renderAllSlides(slides);
+};
+
+const renderAllSlides = (slides) => {
+  const wrapperSlide = document.querySelector(".swiper-wrapper");
+  wrapperSlide.innerHTML = "";
+
+  slides.forEach((sl) => {
+    wrapperSlide.innerHTML += `
+    <div class="swiper-slide">
+              <img
+                src="https://www.themoviedb.org/t/p/original/${sl.backdrop_path}"
+                alt="Black Panther: Wakanda Forever"
+              />
+    </div>
+    `;
+  });
 };
 
 const getCast = (movidcast) => {
@@ -173,6 +201,7 @@ const renderAllMovies = (movies) => {
   });
 };
 
+getSlides();
 getCards();
 
 const topFunction = () => {

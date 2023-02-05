@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lalezar&display=swap");
 
+:root {
+  --swiper-theme-color: darkorchid;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -18,7 +22,10 @@ body {
 /* swiper */
 .swiper {
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  top: 0;
+  position: relative;
+  /* z-index: -1; */
 }
 
 .swiper-slide {
@@ -44,7 +51,7 @@ body {
   font-size: 45px;
 }
 .brand-logo a {
-  color: purple;
+  color: #fff;
   text-decoration: none;
 }
 .brand-logo a:hover {
@@ -59,10 +66,13 @@ body {
 }
 
 header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
   display: flex;
-  background-color: rgba(0, 0, 0, 0.6);
-
-  /* padding: 25px 0; */
+  /* background-color: rgba(0, 0, 0, 0.6); */
 }
 
 .app-bar {
@@ -71,13 +81,14 @@ header {
 
 .app-bar h1 {
   font-family: "Poppins";
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 /* home */
 
 .movie-list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 3rem;
 }
 
 .card-movie {
@@ -236,8 +247,15 @@ header {
   .hero {
     flex-wrap: wrap;
   }
+  .hero .card-img img {
+    display: none;
+  }
 
   .row-cast {
     justify-content: center;
+  }
+
+  .swiper {
+    height: 50vh;
   }
 }
