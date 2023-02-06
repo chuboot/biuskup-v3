@@ -305,6 +305,6 @@ header {
   }
 
   .swiper {
-    height: 50vh;
+    height: 100%;
   }
 }
